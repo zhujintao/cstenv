@@ -1,0 +1,16 @@
+location / {
+
+
+   #if ($remote_addr ~* "^100.97.+") {
+   #     access_log off;
+   #     return 200;
+   #}
+   limit_req_status 429;
+   limit_req zone=session_limit burst=5;
+   rewrite_by_lua_file conf/limitck.lua;
+
+   include ../conf/naxsi_check.rules;
+   include ../conf/wl_params;
+   include ../conf.d/locRoot_params;
+}
+

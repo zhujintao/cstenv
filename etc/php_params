@@ -1,0 +1,12 @@
+index index.php index.html;
+set $loc_root "";
+location ~ .*\.(php|php5)?$ {
+   fastcgi_pass  unix:unix/socket;
+   fastcgi_param PATH_INFO $fastcgi_script_name;
+   fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+   fastcgi_split_path_info ^(.+\.php)(/.+)$;
+   fastcgi_index index.php;
+   include ../conf/fastcgi_params;
+
+}
+

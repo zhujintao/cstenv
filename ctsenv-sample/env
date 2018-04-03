@@ -1,0 +1,16 @@
+####
+#
+#listen       8080;
+#
+#server_name  _;
+### set webapps root path
+#  Expmle webapps OR
+#  Expmle webapps/xxx
+#
+#root webapps;
+#
+listen       8080;
+server_name  _;
+set $htdocs_root webapps;
+
+

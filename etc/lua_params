@@ -1,0 +1,2 @@
+lua_package_path  '/opt/cstenv/lib/?.lua;../conf.d/?.lua;;';
+lua_package_cpath '/opt/cstenv/lib/modules/?.so;;';

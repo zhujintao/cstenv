@@ -1,0 +1,3 @@
+include ../conf.d/setLimithead_params;
+limit_req_zone $cookie_cstenvT zone=session_limit:10m rate=1r/s;
+limit_req_zone $binary_remote_addr$uri zone=auth_limit:10m rate=30r/m;

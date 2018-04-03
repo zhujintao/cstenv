@@ -1,0 +1,38 @@
+include ../conf.d/locCustom_params;
+location /cstevnstatus.web {
+   stub_status on;
+   access_log off;
+}
+
+location = /redis {
+  internal;
+  set_md5 $redis_key $args;
+  redis_pass 127.0.0.1:6379;
+}
+
+location = /redis2 {
+  internal;
+  set_unescape_uri $exptime $arg_exptime;
+  set_unescape_uri $key $arg_key;
+  set_md5 $key;
+
+  redis2_query set $key $echo_request_body;
+  redis2_query expire $key $exptime;
+  redis2_pass 127.0.0.1:6379;
+}
+
+location /auth {
+  limit_req_status 511;
+  limit_req zone=auth_limit burst=1;
+
+  if ($arg_url = "") {return 403;}
+
+  access_by_lua '
+     local random = math.random(ngx.now())
+     local token = ngx.md5("t@taotao.me" .. ngx.var.remote_addr .. random)
+     if (ngx.var.cookie_cstenvT ~= token) then
+        ngx.header["Set-Cookie"] = {"cstenvT=" .. token, "cstenvR=" .. random}
+        return ngx.redirect(ngx.var.arg_url)
+     end
+  ';
+}

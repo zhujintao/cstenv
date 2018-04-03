@@ -1,0 +1,43 @@
+server {
+        include ../env;
+        include ../conf/head_params;
+        charset utf8;
+	
+	include ../conf/limit_params;
+
+        #error_page  404              /404.html;
+        # redirect server error pages to the static page /50x.html
+        include ../conf/err_params;
+
+        # Yii with Nginx and PHP with FPM SAPI.
+        include ../conf/yii_params;
+
+        #avoid processing of calls to unexisting static files
+        include ../conf/static_params;
+
+        #location / documetn
+        include ../conf/locroot_params;
+
+	#location /waf 
+	include ../conf/locwaf_params;
+
+        #custom location document
+        include ../conf/loccustom_params;
+
+        #dynamic configuration waf
+        include ../conf/waf_params;
+
+        # pass the PHP scripts to FastCGI server listening on Uninx Socket
+        include ../conf/php_params;
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        location ~ /\. {
+          deny all;
+          access_log off;
+          log_not_found off;
+        }
+
+    }
+

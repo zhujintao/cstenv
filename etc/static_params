@@ -1,0 +1,12 @@
+location ~ \.(css|png|jpg|gif|swf|ico|pdf|mov|fla|zip|rar|apk|ipa)$ {
+   charset        utf-8;
+   set $key $uri;
+   set_escape_uri $escaped_key $key;
+   srcache_fetch GET /redis $key;
+   srcache_store PUT /redis2 key=$escaped_key&exptime=120;
+   add_header X-Cached-From $srcache_fetch_status;
+   add_header X-Cached-Store $srcache_store_status;
+
+   try_files $uri =404;
+   expires      1y;
+}

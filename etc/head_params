@@ -1,0 +1,5 @@
+set $domain $server_name;
+set $wsdir $htdocs_root;
+access_by_lua_file conf/abgray.lua;
+server_name $domain;
+root $wsdir;

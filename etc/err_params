@@ -1,0 +1,15 @@
+error_page  404              /404.html;
+error_page  500 502 503 504  /50x.html;
+
+error_page  511 /511.html;
+location = /511.html{
+   return 200 '<script>alert("排队中,请稍后刷新...");</script>';
+}
+error_page  429 /429.html;
+location = /429.html {
+   return 200 '<script>alert("请求频繁,请稍后再试...");</script>';
+}
+error_page  418 /418.html;
+location = /418.html {
+   return 200 '<script>alert("WAF安全策略,bug修复中...");</script>';
+}

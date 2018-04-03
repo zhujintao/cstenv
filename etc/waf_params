@@ -1,0 +1,7 @@
+include ../conf.d/setWaf_params;
+#set $naxsi_flag_enable 0;
+#if ($remote_addr = "121.15.155.2") {
+#       set $naxsi_flag_learning 1;
+#       set $naxsi_flag_post_action 1;
+#}
+

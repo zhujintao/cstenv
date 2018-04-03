@@ -1,0 +1,3 @@
+include ../conf.d/setLimit_params;
+#limit_conn conn_limit_per_ip 10;
+#limit_req zone=req_limit_per_ip burst=10 nodelay;
